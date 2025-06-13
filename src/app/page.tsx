@@ -16,8 +16,10 @@ export default function Home() {
       <AnimatedSection>
         <SkillsSection />
       </AnimatedSection>
-      {/* <ExperienceSection />
-      <ProjectsSection />
+      <AnimatedSection>
+        <ExperienceSection />
+      </AnimatedSection>
+      {/* <ProjectsSection />
       <EducationSection />
       <ContactSection />
       <Footer /> */}
