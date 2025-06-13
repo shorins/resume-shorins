@@ -9,7 +9,7 @@ import AnimatedSection from './components/AnimatedSection';
 
 export default function Home() {
   return (
-    <main className="container mx-auto px-6 py-8 md:py-16">
+    <main className="container mx-auto px-6 py-8 md:py-16 space-y-24 md:space-y-32">
       <AnimatedSection>
         <HeroSection />
       </AnimatedSection>
@@ -22,10 +22,12 @@ export default function Home() {
       <AnimatedSection>
         <ProjectsSection />
       </AnimatedSection>
-      {/* 
-      <EducationSection />
-      <ContactSection />
-      <Footer /> */}
+      <AnimatedSection>
+        <EducationSection />
+      </AnimatedSection>
+      <AnimatedSection>
+        <ContactSection />
+      </AnimatedSection>
     </main>
   );
 }

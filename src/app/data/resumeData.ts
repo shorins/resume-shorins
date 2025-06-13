@@ -87,5 +87,54 @@ export const resumeData = {
           }
         ]
       },
+      education: {
+        title: "Образование и Курсы",
+        intro: "Моя академическая подготовка в МАИ заложила прочный фундамент в области информатики, который я постоянно дополняю специализированными курсами и участием в мероприятиях, чтобы оставаться на переднем крае технологий.",
+        main: {
+          university: "Московский авиационный институт",
+          faculty: "(национальный исследовательский университет)",
+          details: {
+            direction: "Информатика и вычислительная техника",
+            degree: "Бакалавриат (окончание в июле 2026)",
+            gpa: "4.7 / 5.0"
+          }
+        },
+        courses: [
+          {
+            name: "Deep Learning School, МФТИ",
+            period: "Январь 2024 – Июль 2024"
+          },
+          {
+            name: "Участник, \"Vibe-хакатон\" от Friflex",
+            period: "Июнь 2024"
+          }
+        ]
+      },
+      contact: {
+        title: "Свяжитесь со мной",
+        intro: "Я всегда открыт для новых проектов, интересных предложений и сотрудничества. Не стесняйтесь написать мне.",
+        links: [
+          { 
+            type: 'email',
+            label: "mighty.shorin@ya.ru",
+            href: "mailto:mighty.shorin@ya.ru"
+          },
+          {
+            type: 'telegram',
+            label: "Telegram: @mighty_shorin",
+            href: "https://t.me/mighty_shorin"
+          },
+          {
+            type: 'github',
+            label: "GitHub: MightyShorin",
+            href: "https://github.com/MightyShorin"
+          },
+          {
+            type: 'kaggle',
+            label: "Kaggle: sergeyshorin",
+            href: "https://kaggle.com/sergeyshorin"
+          }
+        ]
+      }
     // В будущем здесь будут данные для других секций
   };
