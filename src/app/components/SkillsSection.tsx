@@ -74,7 +74,7 @@ const SkillsSection = () => {
   };
 
   return (
-    <section id="skills" className="py-16 md:py-24">
+    <section id="skills" className="py-8">
       <h2 className="section-title mb-12">Технический Стек</h2>
       <p className="max-w-3xl text-slate-600 mb-12 text-lg leading-relaxed">
         {intro}

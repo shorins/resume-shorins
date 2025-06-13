@@ -15,7 +15,7 @@ const ContactSection = () => {
   const { title, intro, links } = resumeData.contact;
 
   return (
-    <section id="contact" className="py-16 md:py-24">
+    <section id="contact" className="py-8">
       <h2 className="section-title mb-4 text-center">{title}</h2>
       <p className="max-w-2xl mx-auto text-center text-slate-600 mb-12 text-lg leading-relaxed">
         {intro}

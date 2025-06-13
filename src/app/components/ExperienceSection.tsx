@@ -4,7 +4,7 @@ import ExperienceItem from "./ExperienceItem";
 
 const ExperienceSection = () => {
   return (
-    <section id="experience" className="py-16 md:py-24">
+    <section id="experience" className="py-8">
       <h2 className="section-title mb-12">Релевантный опыт</h2>
       <p className="max-w-3xl text-slate-600 mb-12 text-lg leading-relaxed">
         Несмотря на статус студента, я уже успел поучаствовать в реальных проектах, где применял свои навыки на практике, включая руководство командой и разработку коммерческих продуктов. Нажмите на карточки ниже, чтобы узнать больше.
