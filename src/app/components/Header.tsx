@@ -1,11 +1,15 @@
-"use client"; // Директива для клиентского компонента
+// src/app/components/Header.tsx
+"use client"; 
 
-import { useState } from 'react';
+// 1. Импортируем хуки useState и useEffect
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  // 2. Создаем состояние для отслеживания активной ссылки
+  const [activeLink, setActiveLink] = useState('');
 
   const navLinks = [
     { title: 'Навыки', href: '#skills' },
@@ -13,6 +17,30 @@ const Header = () => {
     { title: 'Проекты', href: '#projects' },
     { title: 'Образование', href: '#education' },
   ];
+  
+  // 3. Используем useEffect для настройки IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveLink(entry.target.id);
+          }
+        });
+      },
+      // Настройки: секция считается активной, если видна на 40%
+      { rootMargin: '0px', threshold: 0.4 }
+    );
+
+    // Находим все секции с ID и начинаем за ними следить
+    const sections = document.querySelectorAll('section[id]');
+    sections.forEach((section) => observer.observe(section));
+
+    // Важно: функция очистки для предотвращения утечек памяти
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []); // Пустой массив зависимостей означает, что эффект запустится один раз при монтировании
 
   return (
     <header className="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
@@ -21,11 +49,14 @@ const Header = () => {
           <Link href="#home">Сергей Шорин</Link>
         </div>
         
-        {/* Десктопное меню */}
         <ul className="hidden md:flex space-x-8 text-slate-600 font-medium items-center">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="nav-link">
+              {/* 4. Динамически добавляем класс 'active' */}
+              <Link 
+                href={link.href} 
+                className={`nav-link ${activeLink === link.href.substring(1) ? 'active' : ''}`}
+              >
                 {link.title}
               </Link>
             </li>
@@ -37,7 +68,6 @@ const Header = () => {
           </li>
         </ul>
 
-        {/* Кнопка мобильного меню */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
@@ -46,7 +76,6 @@ const Header = () => {
         </button>
       </nav>
 
-      {/* Выпадающее мобильное меню */}
       {isOpen && (
         <div className="md:hidden">
           <ul className="px-6 pb-4 flex flex-col space-y-3">
