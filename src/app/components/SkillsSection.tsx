@@ -72,7 +72,15 @@ const SkillsSection = () => {
       },
     },
     animation: {
-      duration: 1000,
+      delay: (context) => {
+        let delay = 0;
+        if (context.type === 'data' && context.mode === 'default') {
+          delay = context.dataIndex * 100; // 100ms delay per bar
+        }
+        return delay;
+      },
+      duration: 800, // Duration for each bar animation
+      easing: 'easeOutQuart',
     }
   };
 
