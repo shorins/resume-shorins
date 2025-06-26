@@ -6,7 +6,7 @@ const EducationSection = () => {
   const { title, intro, main, courses } = resumeData.education;
 
   return (
-    <section id="education" className="py-8">
+    <section id="education" className="section-anchor py-8">
       <h2 className="section-title mb-12">{title}</h2>
       <p className="max-w-3xl text-slate-600 mb-12 text-lg leading-relaxed">
         {intro}

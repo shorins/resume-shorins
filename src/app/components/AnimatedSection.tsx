@@ -1,6 +1,8 @@
+
 // src/app/components/AnimatedSection.tsx
 "use client";
 
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ReactNode } from 'react';
 
@@ -10,17 +12,25 @@ interface AnimatedSectionProps {
 
 const AnimatedSection = ({ children }: AnimatedSectionProps) => {
   const { ref, inView } = useInView({
-    triggerOnce: true, // Анимация сработает только один раз
-    threshold: 0.1,    // Сработает, когда 10% секции появится в экране
+    triggerOnce: true,
+    threshold: 0.1,
   });
 
+  const variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div 
-      ref={ref} 
-      className={`transition-opacity duration-700 ease-out ${inView ? 'opacity-100' : 'opacity-0 translate-y-5'}`}
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={inView ? 'visible' : 'hidden'}
+      variants={variants}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 

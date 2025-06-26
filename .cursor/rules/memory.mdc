@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+1. после внесения изменений в проект по моим запросам также всегда обновляй состояние проекта в [memory.md](mdc:cursor/memory.md) и выполненные задачи [idea.md](mdc:cursor/idea.md)

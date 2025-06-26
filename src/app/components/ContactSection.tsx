@@ -15,14 +15,14 @@ const ContactSection = () => {
   const { title, intro, links } = resumeData.contact;
 
   return (
-    <section id="contact" className="py-8">
+    <section id="contact" className="section-anchor py-8">
       <h2 className="section-title mb-4 text-center">{title}</h2>
       <p className="max-w-2xl mx-auto text-center text-slate-600 mb-12 text-lg leading-relaxed">
         {intro}
       </p>
       <div className="flex justify-center items-center flex-wrap gap-6 md:gap-8">
         {links.map((link) => {
-          // @ts-ignore
+          // @ts-expect-error: Type 'string' cannot be used to index type '{ email: LucideIcon; telegram: LucideIcon; github: LucideIcon; kaggle: (props: SVGProps<SVGSVGElement>) => Element; }'.
           const IconComponent = iconMap[link.type];
           return (
             <a

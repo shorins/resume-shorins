@@ -59,7 +59,7 @@
 .details-content { 
     max-height: 0; 
     overflow: hidden; 
-    transition: max-height 0.7s ease-in-out; 
+    transition: max-height 0.3s ease-in-out; 
 }
 .details-content.open { max-height: 1000px; }
 .details-toggle .chevron { transition: transform 0.3s ease; }
@@ -79,4 +79,5 @@
     opacity: 1;
     transform: translateY(0);
 }
+.section-anchor { scroll-margin-top: 5rem; } /* 80px, чтобы учесть высоту хедера */
 @media (min-width: 768px) { .chart-container { height: 300px; } }

@@ -71,10 +71,13 @@ const SkillsSection = () => {
         },
       },
     },
+    animation: {
+      duration: 1000,
+    }
   };
 
   return (
-    <section id="skills" className="py-8">
+    <section id="skills" className="section-anchor py-8">
       <h2 className="section-title mb-12">Технический Стек</h2>
       <p className="max-w-3xl text-slate-600 mb-12 text-lg leading-relaxed">
         {intro}

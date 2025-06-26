@@ -46,7 +46,6 @@ const Header = () => {
     <header className="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <div className="text-2xl font-bold text-slate-900">
-          <Link href="#home">Сергей Шорин</Link>
         </div>
         
         <ul className="hidden md:flex space-x-8 text-slate-600 font-medium items-center">

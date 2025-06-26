@@ -7,7 +7,7 @@ const ProjectsSection = () => {
   const { title, badge, description, details } = resumeData.projects;
 
   return (
-    <section id="projects" className="py-16 md:py-24">
+    <section id="projects" className="section-anchor py-16 md:py-24">
       <h2 className="section-title mb-12">Проекты и Соревнования</h2>
       <p className="max-w-3xl text-slate-600 mb-12 text-lg leading-relaxed">
         Я верю, что лучшие навыки демонстрируются на практике. Мой самый значимый соревновательный проект — классификация персонажей Симпсонов на Kaggle, где я применил комплексный подход для достижения высокого результата.
