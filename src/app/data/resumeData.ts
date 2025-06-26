@@ -68,12 +68,25 @@ export const resumeData = {
           period: "Декабрь 2023 – Июнь 2024",
           title: "Team Lead & AI Engineer",
           company: "Проект \"Цифровая Кафедра\" (Приоритет 2030)",
-          details: [
-            "Руководил командой из 10 человек (ML, Backend, Frontend) по методологии <strong>Agile (Scrum)</strong>.",
-            "Спроектировал архитектуру сервиса для сегментации нефтяных разливов, координировал работу отделов, проводил регулярные встречи.",
-            "Лично обучал модель сегментации на базе <strong>YOLOv8</strong> и разработал микросервис на <strong>FastAPI</strong> для инференса модели.",
-          ],
-          result: "<strong>Результат:</strong> Создан MVP-сервис, позволяющий быстро и с минимальными затратами анализировать изображения с дронов."
+          roles: [
+            {
+              type: "leadership",
+              title: "Лидерство",
+              description: "Руководил командой из 10 человек (ML, Backend, Frontend) по методологии <strong>Agile (Scrum)</strong>.",
+            },
+            {
+              type: "architecture",
+              title: "Архитектура",
+              description: "Спроектировал архитектуру сервиса для сегментации нефтяных разливов, координировал работу отделов, проводил регулярные встречи.",
+            },
+            {
+              type: "development",
+              title: "Разработка",
+              description: "Лично обучал модель сегментации на базе <strong>YOLOv11</strong> и разработал микросервис на <strong>FastAPI</strong> для инференса модели.",
+            },
+          ] as const,
+          result: "<strong>Результат:</strong> Создан MVP-сервис, позволяющий быстро и с минимальными затратами анализировать изображения с дронов.",
+          github: "https://github.com/oil-spill-ai/oil-spill-devops"
         }
       ],
       projects: {
