@@ -93,6 +93,7 @@ export const resumeData = {
         title: "Kaggle: Simpsons Characters Classification",
         badge: "3-е место (F1-score)",
         description: "Разработал комплексное решение для классификации 42 персонажей. Ниже представлен краткий обзор примененных техник.",
+        colabLink: "https://colab.research.google.com/drive/1FfLgbUpsiLzOVTj-uuWNTNTWS-mkmf3t?usp=sharing",
         details: [
           {
             title: "Модель и Transfer Learning",

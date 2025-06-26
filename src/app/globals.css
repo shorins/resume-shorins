@@ -81,3 +81,67 @@
 }
 .section-anchor { scroll-margin-top: 5rem; } /* 80px, чтобы учесть высоту хедера */
 @media (min-width: 768px) { .chart-container { height: 300px; } }
+
+/* --- Начало кода для кнопки "Glow on Hover" --- */
+
+/* 1. Анимация для переливания градиента */
+@keyframes glowing-border {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* 2. Основной класс-контейнер для кнопки */
+.glow-on-hover {
+  position: relative; /* База для псевдоэлементов */
+  z-index: 0;
+}
+
+/* 3. Светящаяся рамка. Она находится ПОД основной кнопкой */
+.glow-on-hover:before {
+  content: '';
+  /* Вместо радуги используем оранжево-золотой градиент */
+  background: linear-gradient(
+    45deg,
+    #f97316, /* orange-500 */
+    #fcd34d, /* amber-300 */
+    #fb923c, /* orange-400 */
+    #f59e0b, /* amber-500 */
+    #f97316
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  
+  /* Запускаем анимацию переливания бесконечно */
+  animation: glowing-border 20s linear infinite;
+  
+  /* Изначально рамка невидима */
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  border-radius: 10px;
+}
+
+/* 4. "Крышка" кнопки. Она закрывает рамку, пока не наведен курсор */
+.glow-on-hover:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+/* 5. При наведении на кнопку... */
+.glow-on-hover:hover:before {
+  /* ...показываем светящуюся рамку */
+  opacity: 1;
+}
+
+/* --- Конец кода --- */

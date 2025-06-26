@@ -2,9 +2,11 @@
 import { Trophy } from "lucide-react";
 import { resumeData } from "@/app/data/resumeData";
 import ProjectDetailItem from "./ProjectDetailItem";
+import ColabIcon from "./icons/ColabIcon";
+import GlowButton from "./GlowButton";
 
 const ProjectsSection = () => {
-  const { title, badge, description, details } = resumeData.projects;
+  const { title, badge, description, details, colabLink } = resumeData.projects;
 
   return (
     <section id="projects" className="section-anchor py-16 md:py-24">
@@ -16,11 +18,24 @@ const ProjectsSection = () => {
       <div className="card overflow-hidden">
         <div className="p-6 md:p-8">
           <div className="flex flex-col md:flex-row justify-between md:items-center">
-            <h3 className="text-2xl font-bold text-slate-800">{title}</h3>
-            <p className="bg-sky-100 text-sky-800 font-bold py-2 px-4 rounded-full mt-4 md:mt-0 flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-yellow-500" />
-              {badge}
-            </p>
+            <div className="flex items-center flex-wrap gap-4">
+              <h3 className="text-2xl font-bold text-slate-800">{title}</h3>
+              <p className="bg-sky-100 text-sky-800 font-bold py-2 px-4 rounded-full flex items-center gap-2">
+                <Trophy className="w-5 h-5 text-yellow-500" />
+                {badge}
+              </p>
+            </div>
+            {colabLink && (
+              <GlowButton
+                href={colabLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full px-4 py-2 text-sm font-semibold flex items-center gap-2 bg-slate-100 text-slate-600 hover:bg-orange-500 hover:text-white transition-colors duration-200"
+              >
+                <ColabIcon className="w-5 h-5" />
+                <span>Посмотреть ноутбук</span>
+              </GlowButton>
+            )}
           </div>
           <p className="mt-4 text-slate-600">{description}</p>
 
