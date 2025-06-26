@@ -1,14 +1,14 @@
 // src/app/components/ContactSection.tsx
 import { Github, Mail, Send } from "lucide-react";
-import KaggleIcon from "./icons/KaggleIcon"; // Наша новая иконка
+import Image from "next/image";
 import { resumeData } from "@/app/data/resumeData";
 
 // Карта для сопоставления типа контакта с компонентом иконки
-const iconMap = {
+const iconMap: Record<string, React.ElementType | null> = {
   email: Mail,
   telegram: Send,
   github: Github,
-  kaggle: KaggleIcon,
+  kaggle: null, // Kaggle будет обрабатываться отдельно
 };
 
 const ContactSection = () => {
@@ -22,7 +22,6 @@ const ContactSection = () => {
       </p>
       <div className="flex justify-center items-center flex-wrap gap-6 md:gap-8">
         {links.map((link) => {
-          // @ts-expect-error: Type 'string' cannot be used to index type '{ email: LucideIcon; telegram: LucideIcon; github: LucideIcon; kaggle: (props: SVGProps<SVGSVGElement>) => Element; }'.
           const IconComponent = iconMap[link.type];
           return (
             <a
@@ -32,7 +31,11 @@ const ContactSection = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-3 text-lg font-medium text-slate-700 hover:text-sky-600 transition"
             >
-              <IconComponent className="w-6 h-6 text-sky-500" />
+              {link.type === 'kaggle' ? (
+                <Image src="/kaggle.svg" alt="Kaggle" width={32} height={32} className="w-8 h-8 text-sky-500 mt-[-6px] mr-[-7px]" />
+              ) : (
+                IconComponent && <IconComponent className="w-6 h-6 text-sky-500" />
+              )}
               <span>{link.label}</span>
             </a>
           );

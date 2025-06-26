@@ -37,7 +37,7 @@ const ExperienceItem = ({ item }: ExperienceItemProps) => {
 
   return (
     <div className="mb-12 timeline-item">
-      <div className="card p-6">
+      <div className="card p-4 sm:p-6">
         <p className="text-sm font-medium text-sky-600">{item.period}</p>
         <h3 className="text-2xl font-bold mt-2">{item.title}</h3>
         <p className="text-lg font-medium text-slate-500 mt-1">{item.company}</p>
@@ -64,20 +64,20 @@ const ExperienceItem = ({ item }: ExperienceItemProps) => {
 
         {item.roles && (
           <div className="mt-4">
-            <div className="flex border-b border-slate-200">
+            <div className="flex flex-wrap border-b border-slate-200">
               {item.roles.map((role) => {
                 const IconComponent = iconMap[role.type];
                 return (
                   <button
                     key={role.type}
-                    className={`flex-1 py-3 px-2 text-center text-sm font-semibold flex items-center justify-center gap-2 border-b-2 transition-all duration-300
+                    className={`flex-1 py-2 px-1 text-center text-xs sm:text-sm font-semibold flex items-center justify-center gap-1 sm:gap-2 border-b-2 transition-all duration-300
                       ${activeTab === role.type
                         ? 'text-sky-600 border-sky-500'
                         : 'text-slate-500 border-transparent hover:bg-slate-50'
                       }`}
                     onClick={() => setActiveTab(role.type)}
                   >
-                    {IconComponent && <IconComponent className="w-4 h-4" />}
+                    {IconComponent && <IconComponent className="w-3 h-3 sm:w-4 sm:h-4" />}
                     {role.title}
                   </button>
                 );

@@ -55,7 +55,7 @@ export const resumeData = {
       },
       experience: [
         {
-          period: "Июнь 2024 – настоящее время",
+          period: "Февраль 2025 – настоящее время",
           title: "Backend Python & AI Engineer",
           company: "Telegram Bot Startup (B2B)",
           details: [
@@ -65,7 +65,7 @@ export const resumeData = {
           ]
         },
         {
-          period: "Декабрь 2023 – Июнь 2024",
+          period: "Декабрь 2024 – Июнь 2025",
           title: "Team Lead & AI Engineer",
           company: "Проект \"Цифровая Кафедра\" (Приоритет 2030)",
           roles: [
@@ -127,11 +127,11 @@ export const resumeData = {
         courses: [
           {
             name: "Deep Learning School, МФТИ",
-            period: "Январь 2024 – Июль 2024"
+            period: "Январь 2025 – Июль 2025"
           },
           {
             name: "Участник, \"Vibe-хакатон\" от Friflex",
-            period: "Июнь 2024"
+            period: "Май 2025"
           }
         ]
       },
@@ -146,8 +146,8 @@ export const resumeData = {
           },
           {
             type: 'telegram',
-            label: "Telegram: @mighty_shorin",
-            href: "https://t.me/mighty_shorin"
+            label: "Telegram: @shorinss",
+            href: "https://t.me/shorinss"
           },
           {
             type: 'github',
