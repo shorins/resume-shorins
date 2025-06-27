@@ -1,9 +1,13 @@
 // src/app/components/EducationSection.tsx
-import { Award, GraduationCap, Download } from "lucide-react";
+"use client";
+import { Award, GraduationCap, Download, Eye } from "lucide-react";
 import { resumeData } from "@/app/data/resumeData";
+import { useState } from "react";
+import GradesModal from "./GradesModal"; // Будет создан позже
 
 const EducationSection = () => {
   const { title, intro, main, courses } = resumeData.education;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <section id="education" className="section-anchor py-8">
@@ -32,6 +36,14 @@ const EducationSection = () => {
                 <Download className="w-4 h-4 mr-1" />
                 <span>Скачать оценки</span>
               </a>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="ml-2 inline-flex items-center text-sky-600 hover:text-sky-800 transition-colors duration-200 translate-y-[2.5px]"
+                title="Просмотреть таблицу оценок"
+              >
+                <Eye className="w-4 h-4 mr-1" />
+                <span>Просмотреть оценки</span>
+              </button>
             </p>
           </div>
         </div>
@@ -50,6 +62,7 @@ const EducationSection = () => {
           </div>
         </div>
       </div>
+      <GradesModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
     </section>
   );
 };
