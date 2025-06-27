@@ -1,5 +1,5 @@
 // src/app/components/EducationSection.tsx
-import { Award, GraduationCap } from "lucide-react";
+import { Award, GraduationCap, Download } from "lucide-react";
 import { resumeData } from "@/app/data/resumeData";
 
 const EducationSection = () => {
@@ -22,7 +22,17 @@ const EducationSection = () => {
           <div className="mt-4 text-slate-600 space-y-2">
             <p><strong>Направление:</strong> {main.details.direction}</p>
             <p><strong>Степень:</strong> {main.details.degree}</p>
-            <p><strong>Средний балл (GPA):</strong> <span className="font-bold text-slate-800">{main.details.gpa}</span></p>
+            <p><strong>Средний балл (GPA):</strong> <span className="font-bold text-slate-800">{main.details.gpa}</span>
+              <a
+                href="/univer.xlsx"
+                download
+                className="ml-2 inline-flex items-center text-sky-600 hover:text-sky-800 transition-colors duration-200 translate-y-[2.5px]"
+                title="Скачать таблицу оценок"
+              >
+                <Download className="w-4 h-4 mr-1" />
+                <span>Скачать оценки</span>
+              </a>
+            </p>
           </div>
         </div>
         <div className="card p-6 flex flex-col">
