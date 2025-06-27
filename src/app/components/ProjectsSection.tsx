@@ -46,6 +46,14 @@ const ProjectsSection = () => {
           </div>
         </div>
       </div>
+      <div className="flex justify-center mt-8">
+        <GlowButton
+          href="/portfolio"
+          className="bg-sky-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-sky-600 transition duration-300 shadow-sm hover:shadow-md"
+        >
+          Посмотреть все проекты и эксперименты →
+        </GlowButton>
+      </div>
     </section>
   );
 };

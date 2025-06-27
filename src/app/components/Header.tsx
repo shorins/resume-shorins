@@ -2,14 +2,15 @@
 "use client"; 
 
 // 1. Импортируем хуки useState и useEffect
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // 2. Создаем состояние для отслеживания активной ссылки
-  const [activeLink, setActiveLink] = useState('');
+  const pathname = usePathname();
+  const router = useRouter();
 
   const navLinks = [
     { title: 'Навыки', href: '#skills' },
@@ -17,30 +18,6 @@ const Header = () => {
     { title: 'Проекты', href: '#projects' },
     { title: 'Образование', href: '#education' },
   ];
-  
-  // 3. Используем useEffect для настройки IntersectionObserver
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveLink(entry.target.id);
-          }
-        });
-      },
-      // Настройки: секция считается активной, если видна на 40%
-      { rootMargin: '0px', threshold: 0.4 }
-    );
-
-    // Находим все секции с ID и начинаем за ними следить
-    const sections = document.querySelectorAll('section[id]');
-    sections.forEach((section) => observer.observe(section));
-
-    // Важно: функция очистки для предотвращения утечек памяти
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
-    };
-  }, []); // Пустой массив зависимостей означает, что эффект запустится один раз при монтировании
 
   return (
     <header className="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
@@ -49,17 +26,52 @@ const Header = () => {
         </div>
         
         <ul className="hidden md:flex space-x-8 text-slate-600 font-medium items-center">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              {/* 4. Динамически добавляем класс 'active' */}
-              <Link 
-                href={link.href} 
-                className={`nav-link ${activeLink === link.href.substring(1) ? 'active' : ''}`}
-              >
-                {link.title}
-              </Link>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isAnchorLink = link.href.startsWith('#');
+            const isCurrentPage = pathname === link.href;
+            const isHomePage = pathname === '/';
+
+            const handleClick = (e: React.MouseEvent) => {
+              if (isAnchorLink && !isHomePage) {
+                e.preventDefault();
+                setIsOpen(false); // Close mobile menu if open
+                router.push('/');
+                setTimeout(() => {
+                  const element = document.getElementById(link.href.substring(1));
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }, 100); // Small delay to allow page to load
+              } else if (isAnchorLink && isHomePage) {
+                // Handle smooth scroll on homepage
+                e.preventDefault();
+                setIsOpen(false); // Close mobile menu if open
+                const element = document.getElementById(link.href.substring(1));
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              } else {
+                setIsOpen(false); // Close mobile menu if open
+              }
+            };
+
+            return (
+              <li key={link.href}>
+                <Link 
+                  href={link.href} 
+                  className={`nav-link ${isCurrentPage ? 'active' : ''}`}
+                  onClick={handleClick}
+                >
+                  {link.title}
+                </Link>
+              </li>
+            );
+          })}
+          <li>
+            <Link href="/portfolio" className={`nav-link ${pathname === '/portfolio' ? 'active' : ''}`}>
+              Портфолио
+            </Link>
+          </li>
           <li>
             <Link href="#contact" className="bg-sky-500 text-white font-semibold py-2 px-5 rounded-lg hover:bg-sky-600 transition duration-300 shadow-sm hover:shadow-md">
               Контакт
@@ -78,13 +90,48 @@ const Header = () => {
       {isOpen && (
         <div className="md:hidden">
           <ul className="px-6 pb-4 flex flex-col space-y-3">
-             {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} onClick={() => setIsOpen(false)} className="block py-2 text-slate-600 hover:text-sky-600 font-medium">
-                  {link.title}
-                </Link>
-              </li>
-            ))}
+             {navLinks.map((link) => {
+              const isAnchorLink = link.href.startsWith('#');
+              const isCurrentPage = pathname === link.href;
+              const isHomePage = pathname === '/';
+
+              const handleClick = (e: React.MouseEvent) => {
+                if (isAnchorLink && !isHomePage) {
+                  e.preventDefault();
+                  setIsOpen(false); // Close mobile menu if open
+                  router.push('/');
+                  setTimeout(() => {
+                    const element = document.getElementById(link.href.substring(1));
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100); // Small delay to allow page to load
+                } else if (isAnchorLink && isHomePage) {
+                  // Handle smooth scroll on homepage
+                  e.preventDefault();
+                  setIsOpen(false); // Close mobile menu if open
+                  const element = document.getElementById(link.href.substring(1));
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                } else {
+                  setIsOpen(false); // Close mobile menu if open
+                }
+              };
+
+              return (
+                <li key={link.href}>
+                  <Link href={link.href} onClick={handleClick} className={`block py-2 text-slate-600 hover:text-sky-600 font-medium ${isCurrentPage ? 'active' : ''}`}>
+                    {link.title}
+                  </Link>
+                </li>
+              );
+            })}
+            <li>
+              <Link href="/portfolio" onClick={() => setIsOpen(false)} className={`block py-2 text-slate-600 hover:text-sky-600 font-medium ${pathname === '/portfolio' ? 'active' : ''}`}>
+                Портфолио
+              </Link>
+            </li>
             <li>
               <Link href="#contact" onClick={() => setIsOpen(false)} className="block py-2 text-slate-600 hover:text-sky-600 font-medium">
                 Контакт

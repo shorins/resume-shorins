@@ -2,6 +2,7 @@ import React from 'react';
 
 interface GlowButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;
+  disabled?: boolean;
 }
 
 const GlowButton: React.FC<GlowButtonProps> = ({ children, className, ...props }) => {
