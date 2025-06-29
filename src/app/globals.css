@@ -191,3 +191,22 @@
   animation: mask-fade-in 0.5s ease-in forwards; /* Adjust duration as needed */
   z-index: 5; /* Ensure it's above the image but below the scanner line */
 }
+
+/* 404 Page Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.log-line {
+  opacity: 0; /* Изначально строки невидимы */
+  animation: fadeIn 0.5s forwards; /* Анимация появления */
+}
+
+.blinking-cursor {
+  animation: blink 1s step-end infinite;
+}

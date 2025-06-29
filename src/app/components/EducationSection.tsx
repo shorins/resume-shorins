@@ -20,7 +20,7 @@ const EducationSection = () => {
         const workbook = XLSX.read(data, { type: "array" });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-        const sheetData: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        const sheetData: (string | number | boolean | null)[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
         const headerRowIndex = sheetData.findIndex(row => row.includes("Оценка"));
 
