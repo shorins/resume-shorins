@@ -73,7 +73,36 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link href="#contact" className="bg-sky-500 text-white font-semibold py-2 px-5 rounded-lg hover:bg-sky-600 transition duration-300 shadow-sm hover:shadow-md">
+            <Link 
+              href="#contact" 
+              className="bg-sky-500 text-white font-semibold py-2 px-5 rounded-lg hover:bg-sky-600 transition duration-300 shadow-sm hover:shadow-md"
+              onClick={(e) => {
+                const isAnchorLink = true; // It's always an anchor link
+                const isHomePage = pathname === '/';
+
+                if (isAnchorLink && !isHomePage) {
+                  e.preventDefault();
+                  setIsOpen(false); // Close mobile menu if open
+                  router.push('/');
+                  setTimeout(() => {
+                    const element = document.getElementById('contact');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100); // Small delay to allow page to load
+                } else if (isAnchorLink && isHomePage) {
+                  // Handle smooth scroll on homepage
+                  e.preventDefault();
+                  setIsOpen(false); // Close mobile menu if open
+                  const element = document.getElementById('contact');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                } else {
+                  setIsOpen(false); // Close mobile menu if open
+                }
+              }}
+            >
               Контакт
             </Link>
           </li>
@@ -133,7 +162,32 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link href="#contact" onClick={() => setIsOpen(false)} className="block py-2 text-slate-600 hover:text-sky-600 font-medium">
+              <Link href="#contact" onClick={(e) => {
+                const isAnchorLink = true; // It's always an anchor link
+                const isHomePage = pathname === '/';
+
+                if (isAnchorLink && !isHomePage) {
+                  e.preventDefault();
+                  setIsOpen(false); // Close mobile menu if open
+                  router.push('/');
+                  setTimeout(() => {
+                    const element = document.getElementById('contact');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100); // Small delay to allow page to load
+                } else if (isAnchorLink && isHomePage) {
+                  // Handle smooth scroll on homepage
+                  e.preventDefault();
+                  setIsOpen(false); // Close mobile menu if open
+                  const element = document.getElementById('contact');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                } else {
+                  setIsOpen(false); // Close mobile menu if open
+                }
+              }} className="block py-2 text-slate-600 hover:text-sky-600 font-medium">
                 Контакт
               </Link>
             </li>

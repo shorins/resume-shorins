@@ -2,12 +2,69 @@
 "use client";
 import { Award, GraduationCap, Download, Eye } from "lucide-react";
 import { resumeData } from "@/app/data/resumeData";
-import { useState } from "react";
-import GradesModal from "./GradesModal"; // Будет создан позже
+import { useState, useEffect } from "react";
+import GradesModal from "./GradesModal";
+import * as XLSX from "xlsx";
 
 const EducationSection = () => {
   const { title, intro, main, courses } = resumeData.education;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [gpa, setGpa] = useState<string | null>(null);
+
+  useEffect(() => {
+    const calculateGpa = async () => {
+      try {
+        const response = await fetch("/univer.xlsx");
+        const arrayBuffer = await response.arrayBuffer();
+        const data = new Uint8Array(arrayBuffer);
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const sheetData: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+        const headerRowIndex = sheetData.findIndex(row => row.includes("Оценка"));
+
+        if (headerRowIndex === -1) {
+          setGpa("N/A");
+          console.error("Header row with 'Оценка' not found.");
+          return;
+        }
+
+        const headerRow = sheetData[headerRowIndex];
+        const gradeColumnIndex = headerRow.findIndex(
+          (header) => String(header).trim() === "Оценка"
+        );
+
+        console.log("Header Row found at index:", headerRowIndex, "Content:", headerRow);
+        console.log("Found 'Оценка' at index:", gradeColumnIndex);
+
+        if (gradeColumnIndex === -1) {
+          setGpa("N/A");
+          console.error("Column 'Оценка' not found in the identified header row.");
+          return;
+        }
+
+        const grades = sheetData
+          .slice(headerRowIndex + 1) // Start from the row after the header
+          .map((row) => row[gradeColumnIndex])
+          .filter((grade) => [3, 4, 5].includes(Number(grade)))
+          .map(Number);
+
+        if (grades.length > 0) {
+          const sum = grades.reduce((acc, grade) => acc + grade, 0);
+          const average = sum / grades.length;
+          setGpa(`${average.toFixed(2)}/5.0`);
+        } else {
+          setGpa("N/A");
+        }
+      } catch (error) {
+        console.error("Error calculating GPA:", error);
+        setGpa("Ошибка");
+      }
+    };
+
+    calculateGpa();
+  }, []);
 
   return (
     <section id="education" className="section-anchor py-8">
@@ -26,7 +83,11 @@ const EducationSection = () => {
           <div className="mt-4 text-slate-600 space-y-2">
             <p><strong>Направление:</strong> {main.details.direction}</p>
             <p><strong>Степень:</strong> {main.details.degree}</p>
-            <p><strong>Средний балл (GPA):</strong> <span className="font-bold text-slate-800">{main.details.gpa}</span>
+            <p>
+              <strong>Средний балл (GPA):</strong>{" "}
+              <span className="font-bold text-slate-800">
+                {gpa || main.details.gpa}
+              </span>
               <a
                 href="/univer.xlsx"
                 download
