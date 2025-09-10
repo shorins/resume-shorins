@@ -2,8 +2,9 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Users, LayoutGrid, Code, Github } from "lucide-react";
+import { ChevronDown, Users, LayoutGrid, Code, Github, FileText } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import PDFModal from "./PDFModal";
 
 type ExperienceItemProps = {
   item: {
@@ -18,6 +19,7 @@ type ExperienceItemProps = {
     }[];
     result?: string;
     github?: string;
+    diploma?: string; // Add diploma property
   };
 };
 
@@ -30,6 +32,7 @@ const iconMap = {
 const ExperienceItem = ({ item }: ExperienceItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(item.roles ? item.roles[0].type : '');
+  const [isPDFModalOpen, setIsPDFModalOpen] = useState(false); // State for PDF modal
 
   const createMarkup = (htmlString: string) => {
     return { __html: htmlString };
@@ -108,8 +111,9 @@ const ExperienceItem = ({ item }: ExperienceItemProps) => {
           </div>
         )}
 
-        {item.github && (
-          <div className="mt-4 pt-4 flex items-center">
+        {/* Buttons section for GitHub and Diploma */}
+        <div className="mt-4 pt-4 flex flex-wrap gap-4 items-center">
+          {item.github && (
             <a 
               href={item.github} 
               target="_blank" 
@@ -119,9 +123,29 @@ const ExperienceItem = ({ item }: ExperienceItemProps) => {
               <Github className="w-5 h-5" />
               <span className="font-semibold">GitHub Repository</span>
             </a>
-          </div>
-        )}
+          )}
+          
+          {item.diploma && (
+            <button 
+              onClick={() => setIsPDFModalOpen(true)}
+              className="text-sky-600 hover:text-sky-700 flex items-center gap-2"
+            >
+              <FileText className="w-5 h-5" />
+              <span className="font-semibold">Диплом</span>
+            </button>
+          )}
+        </div>
       </div>
+      
+      {/* PDF Modal */}
+      {item.diploma && (
+        <PDFModal 
+          isOpen={isPDFModalOpen} 
+          setIsOpen={setIsPDFModalOpen} 
+          pdfUrl={item.diploma} 
+          title="Диплом проекта 'Цифровая Кафедра'" 
+        />
+      )}
     </div>
   );
 };
