@@ -53,7 +53,7 @@ const PDFModal: React.FC<PDFModalProps> = ({ isOpen, setIsOpen, pdfUrl, title })
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex min-h-full items-center justify-center p-2 sm:p-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -63,7 +63,7 @@ const PDFModal: React.FC<PDFModalProps> = ({ isOpen, setIsOpen, pdfUrl, title })
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white p-4 sm:p-6 text-left align-middle shadow-xl transition-all max-h-[90vh] flex flex-col">
+              <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white p-3 sm:p-6 text-left align-middle shadow-xl transition-all max-h-[95vh] sm:max-h-[90vh] flex flex-col">
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 flex justify-between items-center flex-shrink-0"
@@ -114,16 +114,23 @@ const PDFModal: React.FC<PDFModalProps> = ({ isOpen, setIsOpen, pdfUrl, title })
                 
                 <div className="mt-4 flex-grow overflow-auto">
                   <div 
-                    className="h-full w-full flex items-center justify-center"
+                    className="h-full w-full"
                     style={{ 
-                      transform: `scale(${zoomLevel / 100}) rotate(${rotation}deg)`,
+                      transform: `rotate(${rotation}deg)`,
                       transformOrigin: 'center center',
                       transition: 'transform 0.2s ease'
                     }}
                   >
                     <iframe 
                       src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`} 
-                      className="w-full h-full min-h-[50vh] sm:min-h-[70vh] border border-gray-300 rounded-lg"
+                      className="w-full h-full min-h-[40vh] sm:min-h-[60vh] md:min-h-[70vh] border border-gray-300 rounded-lg"
+                      style={{ 
+                        transform: `scale(${zoomLevel / 100})`,
+                        transformOrigin: 'top center',
+                        transition: 'transform 0.2s ease',
+                        width: `${100 / (zoomLevel / 100)}%`,
+                        height: `${100 / (zoomLevel / 100)}%`
+                      }}
                       title={title}
                     />
                   </div>
