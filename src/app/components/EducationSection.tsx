@@ -1,14 +1,17 @@
 // src/app/components/EducationSection.tsx
 "use client";
-import { Award, GraduationCap, Download, Eye } from "lucide-react";
+import { Award, GraduationCap, Download, Eye, FileText } from "lucide-react";
 import { resumeData } from "@/app/data/resumeData";
 import { useState, useEffect } from "react";
 import GradesModal from "./GradesModal";
+import PDFModal from "./PDFModal";
 import * as XLSX from "xlsx";
 
 const EducationSection = () => {
   const { title, intro, main, courses } = resumeData.education;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDiplomaModalOpen, setIsDiplomaModalOpen] = useState(false);
+  const [selectedDiploma, setSelectedDiploma] = useState<{ url: string; title: string } | null>(null);
   const [gpa, setGpa] = useState<string | null>(null);
 
   useEffect(() => {
@@ -66,6 +69,11 @@ const EducationSection = () => {
     calculateGpa();
   }, []);
 
+  const openDiplomaModal = (url: string, title: string) => {
+    setSelectedDiploma({ url, title });
+    setIsDiplomaModalOpen(true);
+  };
+
   return (
     <section id="education" className="section-anchor py-8">
       <h2 className="section-title mb-12">{title}</h2>
@@ -115,8 +123,19 @@ const EducationSection = () => {
           </p>
           <div className="mt-4 text-slate-600 space-y-4 flex-grow flex flex-col justify-center">
             {courses.map((course, index) => (
-              <div key={index}>
-                <h4 className="font-bold text-slate-800">{course.name}</h4>
+              <div key={index} className="flex flex-col">
+                <div className="flex items-center">
+                  <h4 className="font-bold text-slate-800">{course.name}</h4>
+                  {course.diploma && (
+                    <button
+                      onClick={() => openDiplomaModal(course.diploma!, `Диплом курса ${course.name}`)}
+                      className="ml-2 inline-flex items-center text-sky-600 hover:text-sky-800 transition-colors duration-200"
+                    >
+                      <FileText className="w-4 h-4 mr-1" />
+                      <span>Диплом</span>
+                    </button>
+                  )}
+                </div>
                 <p className="text-sm">{course.period}</p>
               </div>
             ))}
@@ -124,6 +143,14 @@ const EducationSection = () => {
         </div>
       </div>
       <GradesModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+      {selectedDiploma && (
+        <PDFModal 
+          isOpen={isDiplomaModalOpen} 
+          setIsOpen={setIsDiplomaModalOpen} 
+          pdfUrl={selectedDiploma.url} 
+          title={selectedDiploma.title} 
+        />
+      )}
     </section>
   );
 };

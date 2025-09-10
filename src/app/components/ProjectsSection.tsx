@@ -1,4 +1,5 @@
 // src/app/components/ProjectsSection.tsx
+import Link from 'next/link';
 import { Trophy } from "lucide-react";
 import { resumeData } from "@/app/data/resumeData";
 import ProjectDetailItem from "./ProjectDetailItem";
@@ -47,12 +48,12 @@ const ProjectsSection = () => {
         </div>
       </div>
       <div className="flex justify-center mt-8">
-        <GlowButton
+        <Link
           href="/portfolio"
-          className="bg-sky-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-sky-600 transition duration-300 shadow-sm hover:shadow-md"
+          className="bg-sky-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-sky-600 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
         >
           Посмотреть все проекты и эксперименты →
-        </GlowButton>
+        </Link>
       </div>
     </section>
   );

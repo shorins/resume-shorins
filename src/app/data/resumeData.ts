@@ -129,7 +129,8 @@ export const resumeData = {
         courses: [
           {
             name: "Deep Learning School, МФТИ",
-            period: "Январь 2025 – Июль 2025"
+            period: "Январь 2025 – Июль 2025",
+            diploma: "/dls/diploma_ru.pdf" // Added diploma property
           },
           {
             name: "Участник, \"Vibe-хакатон\" от Friflex",
