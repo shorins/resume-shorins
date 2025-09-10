@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { X, ZoomIn, ZoomOut, RotateCw } from 'lucide-react';
+import { X, ZoomIn, ZoomOut, RotateCw, Download } from 'lucide-react';
 
 interface PDFModalProps {
   isOpen: boolean;
@@ -37,6 +37,16 @@ const PDFModal: React.FC<PDFModalProps> = ({ isOpen, setIsOpen, pdfUrl, title })
     setRotation(prev => (prev + 90) % 360);
   };
 
+  const downloadPDF = () => {
+    // Create a temporary link to trigger the download
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = pdfUrl.split('/').pop() || 'document.pdf'; // Use the file name from the URL
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={closeModal}>
@@ -69,13 +79,22 @@ const PDFModal: React.FC<PDFModalProps> = ({ isOpen, setIsOpen, pdfUrl, title })
                   className="text-lg font-medium leading-6 text-gray-900 flex justify-between items-center flex-shrink-0"
                 >
                   {title}
-                  <button
-                    type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-2 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={closeModal}
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={downloadPDF}
+                      className="inline-flex items-center text-sky-600 hover:text-sky-800 transition-colors duration-200"
+                    >
+                      <Download className="w-4 h-4 mr-1" />
+                      <span>Скачать</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-2 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModal}
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
                 </Dialog.Title>
                 
                 {/* Controls */}
